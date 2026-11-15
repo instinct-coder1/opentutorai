@@ -1,6 +1,6 @@
 import { createOpenAI } from "@ai-sdk/openai";
 import { createClient } from "@supabase/supabase-js";
-import { convertToModelMessages, streamText, type UIMessage } from "ai";
+import { convertToModelMessages, createIdGenerator, streamText, type UIMessage } from "ai";
 import type { Database } from "@/integrations/supabase/types";
 import { isTutorMode, titleFromText, type TutorMode } from "@/features/tutor/modes";
 import {
@@ -12,6 +12,7 @@ import {
 const GATEWAY_URL = "https://ai.gateway.lovable.dev/v1";
 const TUTOR_MODEL = "openai/gpt-6-astra";
 const MAX_HISTORY_MESSAGES = 40;
+const generateMessageId = createIdGenerator({ prefix: "msg", size: 16 });
 
 type ProfileRow = Database["public"]["Tables"]["profiles"]["Row"];
 
@@ -212,6 +213,8 @@ export async function handleTutorChat(request: Request): Promise<Response> {
   return withLovableAiGatewayRunIdHeader(
     result.toUIMessageStreamResponse({
       originalMessages: messages,
+      // Without this the assistant message id is empty and later answers collide on save.
+      generateMessageId,
       sendReasoning: true,
       onError: (error) => {
         console.error("[tutor] stream error", error);
