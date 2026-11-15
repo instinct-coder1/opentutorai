@@ -9,8 +9,8 @@ import { useAuth } from "@/hooks/useAuth";
 import { safeRedirectPath } from "@/lib/redirects";
 
 export const Route = createFileRoute("/login")({
-  validateSearch: (search: Record<string, unknown>): { redirect?: string } => ({
-    redirect: typeof search.redirect === "string" ? search.redirect : undefined,
+  validateSearch: (search: Record<string, unknown>): { redirect?: string | undefined } => ({
+    redirect: typeof search["redirect"] === "string" ? search["redirect"] : undefined,
   }),
   head: () => ({
     meta: [

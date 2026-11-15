@@ -3,8 +3,8 @@ import type { ReactNode } from "react";
 interface FormFieldProps {
   label: string;
   htmlFor: string;
-  hint?: string;
-  error?: string | null;
+  hint?: string | undefined;
+  error?: string | null | undefined;
   children: ReactNode;
 }
 

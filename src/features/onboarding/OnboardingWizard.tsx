@@ -61,8 +61,8 @@ export default function OnboardingWizard({
   const [saveError, setSaveError] = useState<string | null>(null);
 
   const isLastStep = step === TOTAL_ONBOARDING_STEPS - 1;
-  const StepComponent = STEP_COMPONENTS[step];
-  const current = STEPS[step];
+  const StepComponent = STEP_COMPONENTS[step] ?? StepAboutYou;
+  const current = STEPS[step] ?? STEPS[0]!;
 
   function updateAnswer<K extends keyof ProfileAnswers>(key: K, value: ProfileAnswers[K]) {
     setAnswers((previous) => ({ ...previous, [key]: value }));

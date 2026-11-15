@@ -29,7 +29,9 @@ function OnboardingPage() {
   const { data: profile } = useSuspenseQuery(profileQueryOptions(user.id));
   const alreadyCompleted = Boolean(profile?.onboarding_completed_at);
   const fallbackName =
-    typeof user.user_metadata?.display_name === "string" ? user.user_metadata.display_name : "";
+    typeof user.user_metadata?.["display_name"] === "string"
+      ? (user.user_metadata["display_name"] as string)
+      : "";
   const initialStep = alreadyCompleted
     ? 0
     : Math.min(profile?.onboarding_step ?? 0, TOTAL_ONBOARDING_STEPS - 1);

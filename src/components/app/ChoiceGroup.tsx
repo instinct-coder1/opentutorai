@@ -11,7 +11,7 @@ interface ChoiceGroupProps<T extends string | number> {
   options: readonly ChoiceOption<T>[];
   value: T | null;
   onChange: (value: T) => void;
-  error?: string | null;
+  error?: string | null | undefined;
   columns?: 2 | 3;
 }
 
@@ -30,6 +30,7 @@ export default function ChoiceGroup<T extends string | number>({
     if (event.key !== "ArrowRight" && event.key !== "ArrowDown") return;
     event.preventDefault();
     const next = options[(index + 1) % options.length];
+    if (!next) return;
     onChange(next.value);
     const group = event.currentTarget.parentElement;
     group
