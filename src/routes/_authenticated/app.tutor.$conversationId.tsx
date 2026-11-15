@@ -1,5 +1,5 @@
 import { useChat } from "@ai-sdk/react";
-import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import { ArrowLeft, Copy, RefreshCw } from "lucide-react";
@@ -29,7 +29,7 @@ import { Shimmer } from "@/components/ai-elements/shimmer";
 import TutorAvatar from "@/components/app/TutorAvatar";
 import { supabase } from "@/integrations/supabase/client";
 import { TUTOR_MODES, tutorModeLabel } from "@/features/tutor/modes";
-import { conversationQueryOptions } from "@/features/tutor/tutorService";
+import { conversationQueryOptions, conversationsQueryOptions } from "@/features/tutor/tutorService";
 
 export const Route = createFileRoute("/_authenticated/app/tutor/$conversationId")({
   loader: async ({ context, params }) => {
@@ -81,6 +81,8 @@ function TutorChat({
 }) {
   const { user } = Route.useRouteContext();
   const queryClient = useQueryClient();
+  const { data: conversations } = useQuery(conversationsQueryOptions(user.id));
+  const liveTitle = conversations?.find((item) => item.id === conversationId)?.title ?? title;
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const transport = useMemo(
@@ -138,7 +140,7 @@ function TutorChat({
         </Link>
         <TutorAvatar size={32} />
         <div className="min-w-0">
-          <p className="truncate text-sm font-semibold text-foreground">{title}</p>
+          <p className="truncate text-sm font-semibold text-foreground">{liveTitle}</p>
           <p className="text-xs text-muted-foreground">{tutorModeLabel(mode)}</p>
         </div>
       </header>
