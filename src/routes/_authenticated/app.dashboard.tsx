@@ -149,6 +149,7 @@ function DashboardPage() {
         <Panel title="How you learn" icon={<Target className="h-4 w-4" aria-hidden="true" />}>
           <dl className="grid gap-4">
             <Detail label="Learning style" value={learningStyleLabel(profile.learning_style)} />
+            <Detail label="Target exam" value={profile.target_exam} />
             <Detail label="Relevant experience" value={profile.previous_experience} />
           </dl>
         </Panel>

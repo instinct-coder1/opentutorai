@@ -18,6 +18,7 @@ export function answersFromProfile(profile: Profile | null, fallbackName: string
     self_assessed_level: profile.self_assessed_level,
     weekly_study_minutes: profile.weekly_study_minutes,
     target_date: profile.target_date,
+    target_exam: profile.target_exam,
     learning_style: profile.learning_style,
     previous_experience: profile.previous_experience,
   };
