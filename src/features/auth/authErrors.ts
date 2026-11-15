@@ -6,6 +6,8 @@ const knownMessages: Array<[string, string]> = [
   ['weak', 'That password is too easy to guess. Please choose a stronger one.'],
   ['same as the old', 'Please choose a password you have not used before.'],
   ['Email not confirmed', 'Please check your inbox to confirm your email before signing in.'],
+  ['is invalid', 'Please enter a valid email address.'],
+  ['Unable to validate email', 'Please enter a valid email address.'],
   ['Failed to fetch', 'Network problem. Check your connection and try again.'],
   ['NetworkError', 'Network problem. Check your connection and try again.'],
   ['rate limit', 'Too many attempts. Please wait a moment and try again.'],
