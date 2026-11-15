@@ -22,6 +22,7 @@ import { Route as AuthenticatedAppDashboardRouteImport } from './routes/_authent
 import { Route as AuthenticatedAppOnboardingRouteImport } from './routes/_authenticated/app.onboarding'
 import { Route as AuthenticatedAppTutorRouteImport } from './routes/_authenticated/app.tutor'
 import { Route as AuthenticatedAppTutorIndexRouteImport } from './routes/_authenticated/app.tutor.index'
+import { Route as AuthenticatedAppTutorConversationIdRouteImport } from './routes/_authenticated/app.tutor.$conversationId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -90,6 +91,12 @@ const AuthenticatedAppTutorIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedAppTutorRoute,
   } as any)
+const AuthenticatedAppTutorConversationIdRoute =
+  AuthenticatedAppTutorConversationIdRouteImport.update({
+    id: '/$conversationId',
+    path: '/$conversationId',
+    getParentRoute: () => AuthenticatedAppTutorRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -103,6 +110,7 @@ export interface FileRoutesByFullPath {
   '/app/onboarding': typeof AuthenticatedAppOnboardingRoute
   '/app/tutor': typeof AuthenticatedAppTutorRouteWithChildren
   '/app/': typeof AuthenticatedAppIndexRoute
+  '/app/tutor/$conversationId': typeof AuthenticatedAppTutorConversationIdRoute
   '/app/tutor/': typeof AuthenticatedAppTutorIndexRoute
 }
 export interface FileRoutesByTo {
@@ -115,6 +123,7 @@ export interface FileRoutesByTo {
   '/app/dashboard': typeof AuthenticatedAppDashboardRoute
   '/app/onboarding': typeof AuthenticatedAppOnboardingRoute
   '/app': typeof AuthenticatedAppIndexRoute
+  '/app/tutor/$conversationId': typeof AuthenticatedAppTutorConversationIdRoute
   '/app/tutor': typeof AuthenticatedAppTutorIndexRoute
 }
 export interface FileRoutesById {
@@ -131,6 +140,7 @@ export interface FileRoutesById {
   '/_authenticated/app/onboarding': typeof AuthenticatedAppOnboardingRoute
   '/_authenticated/app/tutor': typeof AuthenticatedAppTutorRouteWithChildren
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
+  '/_authenticated/app/tutor/$conversationId': typeof AuthenticatedAppTutorConversationIdRoute
   '/_authenticated/app/tutor/': typeof AuthenticatedAppTutorIndexRoute
 }
 export interface FileRouteTypes {
@@ -147,6 +157,7 @@ export interface FileRouteTypes {
     | '/app/onboarding'
     | '/app/tutor'
     | '/app/'
+    | '/app/tutor/$conversationId'
     | '/app/tutor/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -159,6 +170,7 @@ export interface FileRouteTypes {
     | '/app/dashboard'
     | '/app/onboarding'
     | '/app'
+    | '/app/tutor/$conversationId'
     | '/app/tutor'
   id:
     | '__root__'
@@ -174,6 +186,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/onboarding'
     | '/_authenticated/app/tutor'
     | '/_authenticated/app/'
+    | '/_authenticated/app/tutor/$conversationId'
     | '/_authenticated/app/tutor/'
   fileRoutesById: FileRoutesById
 }
@@ -280,14 +293,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppTutorIndexRouteImport
       parentRoute: typeof AuthenticatedAppTutorRoute
     }
+    '/_authenticated/app/tutor/$conversationId': {
+      id: '/_authenticated/app/tutor/$conversationId'
+      path: '/$conversationId'
+      fullPath: '/app/tutor/$conversationId'
+      preLoaderRoute: typeof AuthenticatedAppTutorConversationIdRouteImport
+      parentRoute: typeof AuthenticatedAppTutorRoute
+    }
   }
 }
 
 interface AuthenticatedAppTutorRouteChildren {
+  AuthenticatedAppTutorConversationIdRoute: typeof AuthenticatedAppTutorConversationIdRoute
   AuthenticatedAppTutorIndexRoute: typeof AuthenticatedAppTutorIndexRoute
 }
 
 const AuthenticatedAppTutorRouteChildren: AuthenticatedAppTutorRouteChildren = {
+  AuthenticatedAppTutorConversationIdRoute:
+    AuthenticatedAppTutorConversationIdRoute,
   AuthenticatedAppTutorIndexRoute: AuthenticatedAppTutorIndexRoute,
 }
 
