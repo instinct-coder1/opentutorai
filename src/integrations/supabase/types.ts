@@ -57,6 +57,7 @@ export type Database = {
           self_assessed_level: string | null
           subjects: string[]
           target_date: string | null
+          target_exam: string | null
           updated_at: string
           weekly_study_minutes: number | null
         }
@@ -78,6 +79,7 @@ export type Database = {
           self_assessed_level?: string | null
           subjects?: string[]
           target_date?: string | null
+          target_exam?: string | null
           updated_at?: string
           weekly_study_minutes?: number | null
         }
@@ -99,10 +101,84 @@ export type Database = {
           self_assessed_level?: string | null
           subjects?: string[]
           target_date?: string | null
+          target_exam?: string | null
           updated_at?: string
           weekly_study_minutes?: number | null
         }
         Relationships: []
+      }
+      tutor_conversations: {
+        Row: {
+          created_at: string
+          id: string
+          mode: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          mode?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          mode?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tutor_conversations_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tutor_messages: {
+        Row: {
+          conversation_id: string
+          created_at: string
+          id: string
+          message: Json
+          role: string
+          ui_message_id: string
+          user_id: string
+        }
+        Insert: {
+          conversation_id: string
+          created_at?: string
+          id?: string
+          message: Json
+          role: string
+          ui_message_id: string
+          user_id?: string
+        }
+        Update: {
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          message?: Json
+          role?: string
+          ui_message_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tutor_messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "tutor_conversations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
