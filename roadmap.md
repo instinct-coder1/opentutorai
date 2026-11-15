@@ -5,11 +5,10 @@ Source brief: MASTER_BUILD_PROMPT (uploaded). Built on the migrated Bolt app (Ta
 ## Done
 - [x] Migrate Bolt project (auth, onboarding, profile, dashboard)
 
-## In progress (this session)
-- [ ] Phase 0: docs/PROJECT_STATUS.md with audit + checklist
-- [ ] Phase 1: app shell with sidebar + mobile nav
-- [ ] Phase 2: add target exam to onboarding (11 categories)
-- [ ] Phase 7: AI Tutor — modes, saved conversations, streaming, profile-aware
+- [x] Phase 0: docs/PROJECT_STATUS.md with audit + checklist
+- [x] Phase 1: app shell with sidebar + mobile nav
+- [x] Phase 2: add target exam to onboarding (11 categories)
+- [x] Phase 7 (first slice): AI Tutor — 6 modes, saved conversations, streaming, profile-aware
 
 ## Next
 - [ ] Phase 3: database-driven catalogue (subjects, courses, modules, lessons) + public /subjects, /courses

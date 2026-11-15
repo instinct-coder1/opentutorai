@@ -38,4 +38,7 @@ use the editor.
 - `profiles.id` equals the auth user id; owner-only RLS, no anon access, no delete. Why: preserved from the source schema.
 - `legacy_user_map` maps original Bolt user ids/emails to new auth ids and is service-role only; imported users claim accounts via the reset-password email (verifies email ownership). Why: old password hashes are never imported.
 - Migrated UI kit lives in `src/components/app/` (not `components/ui`, which is shadcn) and uses only semantic tokens from `src/styles.css`.
+- AI tutor streams from server route `/api/tutor` (`src/lib/ai/tutor.server.ts`), verifies the bearer token and uses a user-scoped client so RLS applies; conversations/messages store AI SDK `UIMessage` JSON with a server-generated message id. Why: keeps the key server-side and prevents cross-user access.
+- A trigger creates an empty `profiles` row on signup; other user-owned tables reference `profiles(id)`. Why: features must work before onboarding is finished.
+- `roadmap.md` tracks the phased build from the master brief; `docs/PROJECT_STATUS.md` is the module checklist.
 <!-- AGENT-MEMORY:END -->
