@@ -8,6 +8,7 @@ const knownMessages: Array<[string, string]> = [
   ['Email not confirmed', 'Please check your inbox to confirm your email before signing in.'],
   ['is invalid', 'Please enter a valid email address.'],
   ['Unable to validate email', 'Please enter a valid email address.'],
+  ['could not be delivered', "We couldn't deliver email to that address recently. Check it's correct or try another one."],
   ['Failed to fetch', 'Network problem. Check your connection and try again.'],
   ['NetworkError', 'Network problem. Check your connection and try again.'],
   ['rate limit', 'Too many attempts. Please wait a moment and try again.'],

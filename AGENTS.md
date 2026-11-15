@@ -28,3 +28,14 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+<!-- AGENT-MEMORY:BEGIN -->
+## Project rules (agent-maintained)
+
+- App was migrated from Bolt (Vite + React Router + Supabase); `.lovable/migrate-external-project/ledger.json` tracks what is migrated vs pending — update it when data/users are imported.
+- Auth: email/password via Lovable Cloud; one `AuthProvider` in `__root.tsx` is the only `onAuthStateChange` subscriber (filters events, invalidates router/queries). Why: avoid duplicate listeners and refetch storms.
+- Signed-in pages live under `src/routes/_authenticated/` (client-only `beforeLoad` gate, redirects to `/login?redirect=`); `/app` is the shell layout. Why: session is in browser storage, SSR cannot see it.
+- `profiles.id` equals the auth user id; owner-only RLS, no anon access, no delete. Why: preserved from the source schema.
+- `legacy_user_map` maps original Bolt user ids/emails to new auth ids and is service-role only; imported users claim accounts via the reset-password email (verifies email ownership). Why: old password hashes are never imported.
+- Migrated UI kit lives in `src/components/app/` (not `components/ui`, which is shadcn) and uses only semantic tokens from `src/styles.css`.
+<!-- AGENT-MEMORY:END -->

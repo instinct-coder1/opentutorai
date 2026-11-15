@@ -2,21 +2,117 @@
   "source": "bolt",
   "app": "OpenTutor AI (Vite + React Router + Supabase)",
   "capabilities": [
-    {"capability": "code", "source": "src/ (auth context, onboarding wizard, profile service, UI kit)", "outcome": "migrate", "status": "in_progress", "next_action": "Port to TanStack Start routes; source App.tsx was a placeholder so pages referenced by code (/login, /app/onboarding, /app/dashboard) are wired up"},
-    {"capability": "schema", "source": "supabase/migrations/profiles", "outcome": "migrate", "status": "pending", "next_action": "Recreate profiles table, checks, grants and owner-only RLS in Lovable Cloud"},
-    {"capability": "records", "source": "profiles rows", "outcome": "migrate", "status": "pending", "next_action": "Request profiles CSV/JSON export after preview"},
-    {"capability": "auth_identities", "source": "Supabase Auth email/password", "outcome": "migrate", "status": "pending", "next_action": "Replace with Lovable Cloud email/password; request user export (ids + emails) after preview"},
-    {"capability": "authorization", "source": "RLS auth.uid() = id on profiles", "outcome": "migrate", "status": "pending", "next_action": "Recreate owner-only policies; no anon access; no delete"},
-    {"capability": "first_login_flow", "source": "n/a (new requirement for imported users)", "outcome": "migrate", "status": "pending", "next_action": "Email-verified password setup via reset-password link; legacy id map table server-only"},
-    {"capability": "storage_files", "source": "none detected", "outcome": "absent", "status": "verified", "next_action": "none"},
-    {"capability": "edge_functions", "source": "none (no supabase/functions)", "outcome": "absent", "status": "verified", "next_action": "none"},
-    {"capability": "realtime", "source": "none detected", "outcome": "absent", "status": "verified", "next_action": "none"},
-    {"capability": "payments_email_ai_integrations", "source": "none detected", "outcome": "absent", "status": "verified", "next_action": "none"},
-    {"capability": "public_endpoints_webhooks_schedules", "source": "none detected", "outcome": "absent", "status": "verified", "next_action": "none"},
-    {"capability": "secrets", "source": "VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY (old backend)", "outcome": "replace", "status": "pending", "next_action": "Replaced by Lovable Cloud config; no user secrets required"},
-    {"capability": "theme", "source": "tailwind.config.js brand/navy palette + Inter", "outcome": "migrate", "status": "pending", "next_action": "Port into semantic tokens in src/styles.css"},
-    {"capability": "metadata", "source": "index.html title/description", "outcome": "migrate", "status": "pending", "next_action": "Per-route head()"},
-    {"capability": "cutover", "source": "old Bolt/Supabase project", "outcome": "pending", "status": "pending", "next_action": "After data import, point users to new app"},
-    {"capability": "verification", "source": "n/a", "outcome": "migrate", "status": "pending", "next_action": "Sign up, onboarding save, dashboard read-back, RLS isolation"}
+    {
+      "capability": "code",
+      "source": "src/ (auth context, onboarding wizard, profile service, UI kit)",
+      "outcome": "migrate",
+      "status": "verified",
+      "next_action": "Done: home, sign up, sign in, set-new-password, onboarding wizard, dashboard"
+    },
+    {
+      "capability": "schema",
+      "source": "supabase/migrations/profiles",
+      "outcome": "migrate",
+      "status": "verified",
+      "next_action": "Done: profiles recreated with same checks/grants; legacy_user_map added"
+    },
+    {
+      "capability": "records",
+      "source": "profiles rows",
+      "outcome": "migrate",
+      "status": "pending",
+      "next_action": "Waiting on profiles CSV/JSON export from the old database"
+    },
+    {
+      "capability": "auth_identities",
+      "source": "Supabase Auth email/password",
+      "outcome": "migrate",
+      "status": "pending",
+      "next_action": "Waiting on user export (original ids + emails); then create accounts and fill legacy_user_map"
+    },
+    {
+      "capability": "authorization",
+      "source": "RLS auth.uid() = id on profiles",
+      "outcome": "migrate",
+      "status": "verified",
+      "next_action": "Owner-only read/write verified with two test users; cross-user read and update blocked"
+    },
+    {
+      "capability": "first_login_flow",
+      "source": "n/a (new requirement for imported users)",
+      "outcome": "migrate",
+      "status": "pending",
+      "next_action": "Set-new-password page built and request path exercised; end-to-end email link for an imported user unverified until users are imported"
+    },
+    {
+      "capability": "storage_files",
+      "source": "none detected",
+      "outcome": "absent",
+      "status": "verified",
+      "next_action": "none"
+    },
+    {
+      "capability": "edge_functions",
+      "source": "none (no supabase/functions)",
+      "outcome": "absent",
+      "status": "verified",
+      "next_action": "none"
+    },
+    {
+      "capability": "realtime",
+      "source": "none detected",
+      "outcome": "absent",
+      "status": "verified",
+      "next_action": "none"
+    },
+    {
+      "capability": "payments_email_ai_integrations",
+      "source": "none detected",
+      "outcome": "absent",
+      "status": "verified",
+      "next_action": "none"
+    },
+    {
+      "capability": "public_endpoints_webhooks_schedules",
+      "source": "none detected",
+      "outcome": "absent",
+      "status": "verified",
+      "next_action": "none"
+    },
+    {
+      "capability": "secrets",
+      "source": "VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY (old backend)",
+      "outcome": "replace",
+      "status": "verified",
+      "next_action": "Old backend keys not needed; Lovable Cloud config is automatic"
+    },
+    {
+      "capability": "theme",
+      "source": "tailwind.config.js brand/navy palette + Inter",
+      "outcome": "migrate",
+      "status": "verified",
+      "next_action": "Brand blue/navy palette and Inter ported to semantic tokens"
+    },
+    {
+      "capability": "metadata",
+      "source": "index.html title/description",
+      "outcome": "migrate",
+      "status": "verified",
+      "next_action": "Per-page titles and descriptions set"
+    },
+    {
+      "capability": "cutover",
+      "source": "old Bolt/Supabase project",
+      "outcome": "pending",
+      "status": "pending",
+      "next_action": "After data import, point users to new app"
+    },
+    {
+      "capability": "verification",
+      "source": "n/a",
+      "outcome": "migrate",
+      "status": "in_progress",
+      "next_action": "New-user flow verified end to end; imported-user flow pending data"
+    }
   ]
 }
