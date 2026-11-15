@@ -14,7 +14,96 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      legacy_user_map: {
+        Row: {
+          auth_user_id: string | null
+          claimed_at: string | null
+          email: string
+          imported_at: string
+          original_user_id: string
+        }
+        Insert: {
+          auth_user_id?: string | null
+          claimed_at?: string | null
+          email: string
+          imported_at?: string
+          original_user_id: string
+        }
+        Update: {
+          auth_user_id?: string | null
+          claimed_at?: string | null
+          email?: string
+          imported_at?: string
+          original_user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          age_range: string | null
+          country: string | null
+          created_at: string
+          curriculum: string | null
+          display_name: string | null
+          education_level: string | null
+          id: string
+          learner_type: string | null
+          learning_goal: string | null
+          learning_style: string | null
+          onboarding_completed_at: string | null
+          onboarding_step: number
+          preferred_language: string | null
+          previous_experience: string | null
+          self_assessed_level: string | null
+          subjects: string[]
+          target_date: string | null
+          updated_at: string
+          weekly_study_minutes: number | null
+        }
+        Insert: {
+          age_range?: string | null
+          country?: string | null
+          created_at?: string
+          curriculum?: string | null
+          display_name?: string | null
+          education_level?: string | null
+          id?: string
+          learner_type?: string | null
+          learning_goal?: string | null
+          learning_style?: string | null
+          onboarding_completed_at?: string | null
+          onboarding_step?: number
+          preferred_language?: string | null
+          previous_experience?: string | null
+          self_assessed_level?: string | null
+          subjects?: string[]
+          target_date?: string | null
+          updated_at?: string
+          weekly_study_minutes?: number | null
+        }
+        Update: {
+          age_range?: string | null
+          country?: string | null
+          created_at?: string
+          curriculum?: string | null
+          display_name?: string | null
+          education_level?: string | null
+          id?: string
+          learner_type?: string | null
+          learning_goal?: string | null
+          learning_style?: string | null
+          onboarding_completed_at?: string | null
+          onboarding_step?: number
+          preferred_language?: string | null
+          previous_experience?: string | null
+          self_assessed_level?: string | null
+          subjects?: string[]
+          target_date?: string | null
+          updated_at?: string
+          weekly_study_minutes?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
