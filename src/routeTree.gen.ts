@@ -16,9 +16,13 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
+import { Route as ApiTutorRouteImport } from './routes/api/tutor'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedAppDashboardRouteImport } from './routes/_authenticated/app.dashboard'
 import { Route as AuthenticatedAppOnboardingRouteImport } from './routes/_authenticated/app.onboarding'
+import { Route as AuthenticatedAppTutorRouteImport } from './routes/_authenticated/app.tutor'
+import { Route as AuthenticatedAppTutorIndexRouteImport } from './routes/_authenticated/app.tutor.index'
+import { Route as AuthenticatedAppTutorConversationIdRouteImport } from './routes/_authenticated/app.tutor.$conversationId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -54,6 +58,11 @@ const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
   path: '/app',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const ApiTutorRoute = ApiTutorRouteImport.update({
+  id: '/api/tutor',
+  path: '/api/tutor',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -71,6 +80,23 @@ const AuthenticatedAppOnboardingRoute =
     path: '/onboarding',
     getParentRoute: () => AuthenticatedAppRoute,
   } as any)
+const AuthenticatedAppTutorRoute = AuthenticatedAppTutorRouteImport.update({
+  id: '/tutor',
+  path: '/tutor',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAppTutorIndexRoute =
+  AuthenticatedAppTutorIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAppTutorRoute,
+  } as any)
+const AuthenticatedAppTutorConversationIdRoute =
+  AuthenticatedAppTutorConversationIdRouteImport.update({
+    id: '/$conversationId',
+    path: '/$conversationId',
+    getParentRoute: () => AuthenticatedAppTutorRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -79,9 +105,13 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
+  '/api/tutor': typeof ApiTutorRoute
   '/app/dashboard': typeof AuthenticatedAppDashboardRoute
   '/app/onboarding': typeof AuthenticatedAppOnboardingRoute
+  '/app/tutor': typeof AuthenticatedAppTutorRouteWithChildren
   '/app/': typeof AuthenticatedAppIndexRoute
+  '/app/tutor/$conversationId': typeof AuthenticatedAppTutorConversationIdRoute
+  '/app/tutor/': typeof AuthenticatedAppTutorIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -89,9 +119,12 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
+  '/api/tutor': typeof ApiTutorRoute
   '/app/dashboard': typeof AuthenticatedAppDashboardRoute
   '/app/onboarding': typeof AuthenticatedAppOnboardingRoute
   '/app': typeof AuthenticatedAppIndexRoute
+  '/app/tutor/$conversationId': typeof AuthenticatedAppTutorConversationIdRoute
+  '/app/tutor': typeof AuthenticatedAppTutorIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -102,9 +135,13 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
+  '/api/tutor': typeof ApiTutorRoute
   '/_authenticated/app/dashboard': typeof AuthenticatedAppDashboardRoute
   '/_authenticated/app/onboarding': typeof AuthenticatedAppOnboardingRoute
+  '/_authenticated/app/tutor': typeof AuthenticatedAppTutorRouteWithChildren
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
+  '/_authenticated/app/tutor/$conversationId': typeof AuthenticatedAppTutorConversationIdRoute
+  '/_authenticated/app/tutor/': typeof AuthenticatedAppTutorIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -115,9 +152,13 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/signup'
     | '/app'
+    | '/api/tutor'
     | '/app/dashboard'
     | '/app/onboarding'
+    | '/app/tutor'
     | '/app/'
+    | '/app/tutor/$conversationId'
+    | '/app/tutor/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -125,9 +166,12 @@ export interface FileRouteTypes {
     | '/login'
     | '/reset-password'
     | '/signup'
+    | '/api/tutor'
     | '/app/dashboard'
     | '/app/onboarding'
     | '/app'
+    | '/app/tutor/$conversationId'
+    | '/app/tutor'
   id:
     | '__root__'
     | '/'
@@ -137,9 +181,13 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/signup'
     | '/_authenticated/app'
+    | '/api/tutor'
     | '/_authenticated/app/dashboard'
     | '/_authenticated/app/onboarding'
+    | '/_authenticated/app/tutor'
     | '/_authenticated/app/'
+    | '/_authenticated/app/tutor/$conversationId'
+    | '/_authenticated/app/tutor/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -149,6 +197,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SignupRoute: typeof SignupRoute
+  ApiTutorRoute: typeof ApiTutorRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -202,6 +251,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/tutor': {
+      id: '/api/tutor'
+      path: '/api/tutor'
+      fullPath: '/api/tutor'
+      preLoaderRoute: typeof ApiTutorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/app/': {
       id: '/_authenticated/app/'
       path: '/'
@@ -223,18 +279,57 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppOnboardingRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/tutor': {
+      id: '/_authenticated/app/tutor'
+      path: '/tutor'
+      fullPath: '/app/tutor'
+      preLoaderRoute: typeof AuthenticatedAppTutorRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/tutor/': {
+      id: '/_authenticated/app/tutor/'
+      path: '/'
+      fullPath: '/app/tutor/'
+      preLoaderRoute: typeof AuthenticatedAppTutorIndexRouteImport
+      parentRoute: typeof AuthenticatedAppTutorRoute
+    }
+    '/_authenticated/app/tutor/$conversationId': {
+      id: '/_authenticated/app/tutor/$conversationId'
+      path: '/$conversationId'
+      fullPath: '/app/tutor/$conversationId'
+      preLoaderRoute: typeof AuthenticatedAppTutorConversationIdRouteImport
+      parentRoute: typeof AuthenticatedAppTutorRoute
+    }
   }
 }
+
+interface AuthenticatedAppTutorRouteChildren {
+  AuthenticatedAppTutorConversationIdRoute: typeof AuthenticatedAppTutorConversationIdRoute
+  AuthenticatedAppTutorIndexRoute: typeof AuthenticatedAppTutorIndexRoute
+}
+
+const AuthenticatedAppTutorRouteChildren: AuthenticatedAppTutorRouteChildren = {
+  AuthenticatedAppTutorConversationIdRoute:
+    AuthenticatedAppTutorConversationIdRoute,
+  AuthenticatedAppTutorIndexRoute: AuthenticatedAppTutorIndexRoute,
+}
+
+const AuthenticatedAppTutorRouteWithChildren =
+  AuthenticatedAppTutorRoute._addFileChildren(
+    AuthenticatedAppTutorRouteChildren,
+  )
 
 interface AuthenticatedAppRouteChildren {
   AuthenticatedAppDashboardRoute: typeof AuthenticatedAppDashboardRoute
   AuthenticatedAppOnboardingRoute: typeof AuthenticatedAppOnboardingRoute
+  AuthenticatedAppTutorRoute: typeof AuthenticatedAppTutorRouteWithChildren
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
 }
 
 const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppDashboardRoute: AuthenticatedAppDashboardRoute,
   AuthenticatedAppOnboardingRoute: AuthenticatedAppOnboardingRoute,
+  AuthenticatedAppTutorRoute: AuthenticatedAppTutorRouteWithChildren,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
 }
 
@@ -259,6 +354,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SignupRoute: SignupRoute,
+  ApiTutorRoute: ApiTutorRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

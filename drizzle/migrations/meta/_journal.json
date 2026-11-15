@@ -8,6 +8,20 @@
       "when": 1794718255011,
       "tag": "0000_create_profiles_and_legacy_user_map",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794718801794,
+      "tag": "0001_tutor_conversations_and_target_exam",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794719121940,
+      "tag": "0002_create_profile_on_signup",
+      "breakpoints": true
     }
   ]
 }

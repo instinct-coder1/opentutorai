@@ -93,6 +93,7 @@ export interface Profile {
   self_assessed_level: SelfAssessedLevel | null;
   weekly_study_minutes: number | null;
   target_date: string | null;
+  target_exam: string | null;
   learning_style: LearningStyle | null;
   previous_experience: string | null;
   onboarding_step: number;
@@ -114,6 +115,7 @@ export const EMPTY_ANSWERS: ProfileAnswers = {
   self_assessed_level: null,
   weekly_study_minutes: null,
   target_date: null,
+  target_exam: null,
   learning_style: null,
   previous_experience: null,
 };

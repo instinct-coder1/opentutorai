@@ -19,6 +19,7 @@ export default function StepGoals({ answers, errors, onChange }: StepProps) {
   const goalId = useId();
   const minutesId = useId();
   const dateId = useId();
+  const examId = useId();
   const experienceId = useId();
   const todayIso = new Date().toISOString().slice(0, 10);
 
@@ -70,6 +71,21 @@ export default function StepGoals({ answers, errors, onChange }: StepProps) {
           />
         </FormField>
       </div>
+
+      <FormField
+        label="Target exam or qualification"
+        htmlFor={examId}
+        hint="Optional. For example, CBSE Class 10 boards, JEE Main, SAT or AWS Cloud Practitioner."
+      >
+        <input
+          id={examId}
+          type="text"
+          maxLength={120}
+          className={inputClass}
+          value={answers.target_exam ?? ''}
+          onChange={(event) => onChange('target_exam', event.target.value)}
+        />
+      </FormField>
 
       <ChoiceGroup<LearningStyle>
         label="How do you learn best?"

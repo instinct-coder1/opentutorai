@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Profile, ProfileAnswers } from "@/features/profile/options";
 
 const PROFILE_COLUMNS =
-  "id, display_name, learner_type, age_range, country, preferred_language, education_level, curriculum, subjects, learning_goal, self_assessed_level, weekly_study_minutes, target_date, learning_style, previous_experience, onboarding_step, onboarding_completed_at";
+  "id, display_name, learner_type, age_range, country, preferred_language, education_level, curriculum, subjects, learning_goal, self_assessed_level, weekly_study_minutes, target_date, target_exam, learning_style, previous_experience, onboarding_step, onboarding_completed_at";
 
 function blankToNull(value: string | null): string | null {
   if (value === null) return null;
@@ -48,6 +48,7 @@ export async function saveProfileProgress(
     self_assessed_level: answers.self_assessed_level,
     weekly_study_minutes: answers.weekly_study_minutes,
     target_date: answers.target_date || null,
+    target_exam: blankToNull(answers.target_exam),
     learning_style: answers.learning_style,
     previous_experience: blankToNull(answers.previous_experience),
     onboarding_step: step,
