@@ -20,6 +20,8 @@ import { Route as ApiTutorRouteImport } from './routes/api/tutor'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedAppDashboardRouteImport } from './routes/_authenticated/app.dashboard'
 import { Route as AuthenticatedAppOnboardingRouteImport } from './routes/_authenticated/app.onboarding'
+import { Route as AuthenticatedAppTutorRouteImport } from './routes/_authenticated/app.tutor'
+import { Route as AuthenticatedAppTutorIndexRouteImport } from './routes/_authenticated/app.tutor.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -77,6 +79,17 @@ const AuthenticatedAppOnboardingRoute =
     path: '/onboarding',
     getParentRoute: () => AuthenticatedAppRoute,
   } as any)
+const AuthenticatedAppTutorRoute = AuthenticatedAppTutorRouteImport.update({
+  id: '/tutor',
+  path: '/tutor',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAppTutorIndexRoute =
+  AuthenticatedAppTutorIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAppTutorRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -88,7 +101,9 @@ export interface FileRoutesByFullPath {
   '/api/tutor': typeof ApiTutorRoute
   '/app/dashboard': typeof AuthenticatedAppDashboardRoute
   '/app/onboarding': typeof AuthenticatedAppOnboardingRoute
+  '/app/tutor': typeof AuthenticatedAppTutorRouteWithChildren
   '/app/': typeof AuthenticatedAppIndexRoute
+  '/app/tutor/': typeof AuthenticatedAppTutorIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -100,6 +115,7 @@ export interface FileRoutesByTo {
   '/app/dashboard': typeof AuthenticatedAppDashboardRoute
   '/app/onboarding': typeof AuthenticatedAppOnboardingRoute
   '/app': typeof AuthenticatedAppIndexRoute
+  '/app/tutor': typeof AuthenticatedAppTutorIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -113,7 +129,9 @@ export interface FileRoutesById {
   '/api/tutor': typeof ApiTutorRoute
   '/_authenticated/app/dashboard': typeof AuthenticatedAppDashboardRoute
   '/_authenticated/app/onboarding': typeof AuthenticatedAppOnboardingRoute
+  '/_authenticated/app/tutor': typeof AuthenticatedAppTutorRouteWithChildren
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
+  '/_authenticated/app/tutor/': typeof AuthenticatedAppTutorIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -127,7 +145,9 @@ export interface FileRouteTypes {
     | '/api/tutor'
     | '/app/dashboard'
     | '/app/onboarding'
+    | '/app/tutor'
     | '/app/'
+    | '/app/tutor/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -139,6 +159,7 @@ export interface FileRouteTypes {
     | '/app/dashboard'
     | '/app/onboarding'
     | '/app'
+    | '/app/tutor'
   id:
     | '__root__'
     | '/'
@@ -151,7 +172,9 @@ export interface FileRouteTypes {
     | '/api/tutor'
     | '/_authenticated/app/dashboard'
     | '/_authenticated/app/onboarding'
+    | '/_authenticated/app/tutor'
     | '/_authenticated/app/'
+    | '/_authenticated/app/tutor/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -243,18 +266,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppOnboardingRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/tutor': {
+      id: '/_authenticated/app/tutor'
+      path: '/tutor'
+      fullPath: '/app/tutor'
+      preLoaderRoute: typeof AuthenticatedAppTutorRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/tutor/': {
+      id: '/_authenticated/app/tutor/'
+      path: '/'
+      fullPath: '/app/tutor/'
+      preLoaderRoute: typeof AuthenticatedAppTutorIndexRouteImport
+      parentRoute: typeof AuthenticatedAppTutorRoute
+    }
   }
 }
+
+interface AuthenticatedAppTutorRouteChildren {
+  AuthenticatedAppTutorIndexRoute: typeof AuthenticatedAppTutorIndexRoute
+}
+
+const AuthenticatedAppTutorRouteChildren: AuthenticatedAppTutorRouteChildren = {
+  AuthenticatedAppTutorIndexRoute: AuthenticatedAppTutorIndexRoute,
+}
+
+const AuthenticatedAppTutorRouteWithChildren =
+  AuthenticatedAppTutorRoute._addFileChildren(
+    AuthenticatedAppTutorRouteChildren,
+  )
 
 interface AuthenticatedAppRouteChildren {
   AuthenticatedAppDashboardRoute: typeof AuthenticatedAppDashboardRoute
   AuthenticatedAppOnboardingRoute: typeof AuthenticatedAppOnboardingRoute
+  AuthenticatedAppTutorRoute: typeof AuthenticatedAppTutorRouteWithChildren
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
 }
 
 const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppDashboardRoute: AuthenticatedAppDashboardRoute,
   AuthenticatedAppOnboardingRoute: AuthenticatedAppOnboardingRoute,
+  AuthenticatedAppTutorRoute: AuthenticatedAppTutorRouteWithChildren,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
 }
 
